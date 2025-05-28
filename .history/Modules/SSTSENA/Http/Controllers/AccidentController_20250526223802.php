@@ -1,0 +1,142 @@
+<?php
+
+namespace Modules\SSTSENA\Http\Controllers;
+
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Modules\SSTSENA\Entities\Accident;
+use Modules\SICA\Entities\Environment;
+use Modules\SSTSENA\Entities\InjuryType;
+use Modules\SSTSENA\Entities\RiskType;
+use Modules\SSTSENA\Entities\AccidentType;
+
+
+class AccidentController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function index()
+{
+    // Obtener todos los accidentes con sus relaciones
+    $accidents = Accident::with([
+        'environment',
+        'injuryType',
+        'riskType',
+        'accidentType',
+        'user',
+    ])->latest()->get(); // Puedes cambiar a ->paginate(10) si quieres paginación
+  
+    // Enviar los datos a la vista
+    return view('sstsena::modulos.accidents.index', compact('accidents'));
+}
+
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Renderable
+     */
+    public function create()
+    {
+        $environmets = Environment::all();
+        $injuryTypes = InjuryType::all();
+        $riskTypes = RiskType::all();
+        $accidentTypes = AccidentType::all();
+        return view('sstsena::modulos.accidents.create', compact('environmets', 'injuryTypes', 'riskTypes', 'accidentTypes') );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param Request $request
+     * @return Renderable
+     */
+
+     
+   public function store(Request $request)
+{
+   
+    $request->validate([
+        'date_time' => 'required|date',
+        'environment_id' => 'required|exists:environments,id',
+        'injury_type_id' => 'required|exists:injury_types,id',
+        'risk_type_id' => 'required|exists:risk_types,id',
+        'accident_type_id' => 'required|exists:accident_types,id',
+        'description' => 'required|string|max:255',
+        'severity' => 'required|in:minor,moderate,serious,fatal',
+    ]);
+
+    Accident::create([
+        'date_time' => $request->date_time,
+        'environment_id' => $request->environment_id,
+        'injury_type_id' => $request->injury_type_id,
+        'risk_type_id' => $request->risk_type_id,
+        'accident_type_id' => $request->accident_type_id,
+        'description' => $request->description,
+        'created_by' => auth()->user()->id,
+        'evidence' => $request->hasFile('evidence')
+            ? $request->file('evidence')->store('evidence', 'public')
+            : null,
+        'severity' => $request->severity,
+    ]);
+
+    return redirect()->route('sstsena.funcionario.accidents.index')
+        ->with('success', 'Accident created successfully.');
+}
+
+
+    /**
+     * Show the specified resource.
+     * @param int $id
+     * @return Renderable
+     */
+    public function show($id)
+    {
+        return view('sstsena::show');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     * @param int $id
+     * @return Renderable
+     */
+    public function edit($id)
+    {
+        $accident = Accident::with([
+            'environment',
+            'injuryType',
+            'riskType',
+            'accidentType',
+        ])->findOrFail($id);
+        $environments = Environment::all();
+        $injuryTypes = InjuryType::all();
+        $riskTypes = RiskType::all();
+        $accidentTypes = AccidentType::all();
+        return view('sstsena::modulos.accidents.edit', compact('accident', 'environments', 'injuryTypes', 'riskTypes', 'accidentTypes'));
+        
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function update(Request $request, $id)
+{
+
+    $
+}
+
+
+    /**
+     * Remove the specified resource from storage.
+     * @param int $id
+     * @return Renderable
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}

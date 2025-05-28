@@ -1,0 +1,46 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreatePeopleInvolvedsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('people_involveds', function (Blueprint $table) {
+            $table->id();
+            $table->enum('document_type', [
+    'Cédula de Ciudadanía',        // CC
+    'Tarjeta de Identidad',        // TI
+    'Cédula de Extranjería',       // CE
+    'Pasaporte',                   // PAS
+    'NIT',                         // Número de Identificación Tributaria
+    'Permiso Especial de Permanencia', // PEP
+])->default('Cédula de Ciudadanía');
+
+            $table->string('document_number');
+            $table->date('birth_date');
+            $table->string('gender');
+            $table->foreignId('person_type_id')->constrained('person_types')->onDelete('cascade');
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('people_involveds');
+    }
+}

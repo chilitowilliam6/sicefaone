@@ -1,0 +1,1 @@
+@extends ('sstsena::layouts.master')

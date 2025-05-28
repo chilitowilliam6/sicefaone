@@ -1,0 +1,39 @@
+@extends('sstsena.lacyouts.master')
+@section('content')
+  $table->enum('document_type', ['CC', 'TI', 'CE', 'PAS','OTRO']);
+            $table->string('document_number');
+            $table->date('birth_date');
+            $table->string('gender');
+            $table->foreignId('person_type_id')->constrained('person_types')->onDelete('cascade');
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->foreignId('accident_id')->constrained('accidents')->onDelete('cascade');
+    <div class="container mt-5">
+    <div class="card shadow-sm rounded-3" style="background-color: #ffffff;">
+        <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
+            <h3 class="text-center" style="color: #1a3c6e; font-weight: 600;">Crear Persona Involucrada</h3>
+        </div>
+        <div class="card-body p-4">
+            <form action="{{ route('sstsena.admin.people_involveds.store') }}" method="POST">
+                @csrf
+                <div class="mb-4">
+                    <label for="name" class="form-label" style="color: #34495e; font-weight: 500;">Nombre</label>
+                    <input type="text" name="name" id="name" class="form-control border-light-subtle" required>
+                </div>
+                <div class="mb-4">
+                    <label for="description" class="form-label" style="color: #34495e; font-weight: 500;">Descripción</label>
+                    <textarea name="description" id="description" class="form-control border-light-subtle" rows="4"></textarea>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{{ route('sstsena.admin.people_involveds.index') }}" 
+                       class="btn btn-outline-secondary px-4" 
+                       style="border-color: #6c757d;">Cancelar</a>
+                    <button type="submit" class="btn btn-primary px-4" 
+                            style="background-color: #1a3c6e; border-color: #1a3c6e;">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+@endsection
+
