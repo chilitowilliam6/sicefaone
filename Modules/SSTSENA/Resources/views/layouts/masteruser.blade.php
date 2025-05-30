@@ -31,7 +31,7 @@
             <li class="nav-item d-none d-sm-inline-block">
             @auth
                 @if(checkRol('sstsena.admin'))
-                    <li class="nav-item d-none d-sm-inline-block" style="margin-right: 80px;">
+                    <li class="nav-item d-none d-sm-inline-block" style="margin-inline-end: 80px;">
                         <a href="{{ route('sstsena.admin.welcome') }}" 
                         class="nav-link @if(Route::is('sstsena.admin.*')) active @endif">
                             Administrador
@@ -67,7 +67,7 @@
     
 
     <!-- Footer -->
-    <footer style="width: 100%; position: fixed; bottom: 0; left: 0; background-color: #343a40; color: white; padding: 10px 20px;">
+    <footer style="inline-size: 100%; position: fixed; inset-block-end: 0; inset-inline-start: 0; background-color: #343a40; color: white; padding: 10px 20px;">
         <strong>Copyright &copy; 2023-2025 <a href="#" style="color: #3c8dbc;">GDF</a>.</strong> Todos los derechos reservados.
         <div class="float-right d-none d-sm-inline-block">
             <b>Versión</b> 3.2.0

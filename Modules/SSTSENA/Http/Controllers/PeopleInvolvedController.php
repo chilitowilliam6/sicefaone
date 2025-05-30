@@ -15,13 +15,26 @@ class PeopleInvolvedController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $peopleInvolved = PeopleInvolved::all();
+        // Consulta base con relaciones
+        $query = PeopleInvolved::with(['personType', 'accident']);
+    
+        // Si hay un filtro de documento
+        if ($request->filled('search_document')) {
+            $query->where('document_number', 'like', '%' . $request->search_document . '%');
+        }
+    
+        // Ejecutar la consulta
+        $peopleInvolved = $query->get();
+    
+        // Cargar datos auxiliares
         $typePersons = TypePerson::all();
         $accident = Accident::all();
+    
         return view('sstsena::modulos.people_involveds.index', compact('peopleInvolved', 'typePersons', 'accident'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

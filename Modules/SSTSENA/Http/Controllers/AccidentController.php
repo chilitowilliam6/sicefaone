@@ -10,7 +10,7 @@ use Modules\SICA\Entities\Environment;
 use Modules\SSTSENA\Entities\InjuryType;
 use Modules\SSTSENA\Entities\RiskType;
 use Modules\SSTSENA\Entities\AccidentType;
-
+use Modules\SSTSENA\Entities\TypePerson;
 
 class AccidentController extends Controller
 {
@@ -19,19 +19,23 @@ class AccidentController extends Controller
      * @return Renderable
      */
     public function index()
-{
-    // Obtener todos los accidentes con sus relaciones
-    $accidents = Accident::with([
-        'environment',
-        'injuryType',
-        'riskType',
-        'accidentType',
-        'user',
-    ])->latest()->get(); // Puedes cambiar a ->paginate(10) si quieres paginación
-  
-    // Enviar los datos a la vista
-    return view('sstsena::modulos.accidents.index', compact('accidents'));
-}
+    {
+        // Obtener todos los accidentes con sus relaciones
+        $accidents = Accident::with([
+            'environment',
+            'injuryType',
+            'riskType',
+            'accidentType',
+            'user',
+
+        ])->latest()->get(); // Puedes cambiar a ->paginate(10) si quieres paginación
+
+        //obtener todos los tipos de personas
+
+        $typePersons = TypePerson::all();
+        // Enviar los datos a la vista
+        return view('sstsena::modulos.accidents.index', compact('accidents', 'typePersons'));
+    }
 
 
     /**
@@ -44,7 +48,7 @@ class AccidentController extends Controller
         $injuryTypes = InjuryType::all();
         $riskTypes = RiskType::all();
         $accidentTypes = AccidentType::all();
-        return view('sstsena::modulos.accidents.create', compact('environmets', 'injuryTypes', 'riskTypes', 'accidentTypes') );
+        return view('sstsena::modulos.accidents.create', compact('environmets', 'injuryTypes', 'riskTypes', 'accidentTypes'));
     }
 
     /**
@@ -53,37 +57,44 @@ class AccidentController extends Controller
      * @return Renderable
      */
 
-     
-   public function store(Request $request)
-{
-   
-    $request->validate([
-        'date_time' => 'required|date',
-        'environment_id' => 'required|exists:environments,id',
-        'injury_type_id' => 'required|exists:injury_types,id',
-        'risk_type_id' => 'required|exists:risk_types,id',
-        'accident_type_id' => 'required|exists:accident_types,id',
-        'description' => 'required|string|max:255',
-        'severity' => 'required|in:minor,moderate,serious,fatal',
-    ]);
 
-    Accident::create([
-        'date_time' => $request->date_time,
-        'environment_id' => $request->environment_id,
-        'injury_type_id' => $request->injury_type_id,
-        'risk_type_id' => $request->risk_type_id,
-        'accident_type_id' => $request->accident_type_id,
-        'description' => $request->description,
-        'created_by' => auth()->user()->id,
-        'evidence' => $request->hasFile('evidence')
-            ? $request->file('evidence')->store('evidence', 'public')
-            : null,
-        'severity' => $request->severity,
-    ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'date_time' => 'required|date',
+            'environment_id' => 'required|exists:environments,id',
+            'injury_type_id' => 'required|exists:injury_types,id',
+            'risk_type_id' => 'required|exists:risk_types,id',
+            'accident_type_id' => 'required|exists:accident_types,id',
+            'description' => 'required|string|max:255',
+            'severity' => 'required|in:minor,moderate,serious,fatal',
+            'evidence' => 'nullable|file|mimes:jpg,jpeg,png,pdf,docx|max:2048',
+        ]);
 
-    return redirect()->route('sstsena.funcionario.accidents.index')
-        ->with('success', 'Accident created successfully.');
-}
+        $evidenceFileName = null;
+
+        if ($request->hasFile('evidence')) {
+            $file = $request->file('evidence');
+            $evidenceFileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('evidences', $evidenceFileName, 'public'); // Guarda en storage/app/public/evidences
+        }
+
+        Accident::create([
+            'date_time' => $request->date_time,
+            'environment_id' => $request->environment_id,
+            'injury_type_id' => $request->injury_type_id,
+            'risk_type_id' => $request->risk_type_id,
+            'accident_type_id' => $request->accident_type_id,
+            'description' => $request->description,
+            'created_by' => auth()->user()->id,
+            'evidence' => $evidenceFileName, // Solo nombre del archivo
+            'severity' => $request->severity,
+        ]);
+
+        return redirect()->route('sstsena.funcionario.accidents.index')
+            ->with('success', 'Accidente creado correctamente.');
+    }
+
 
 
     /**
@@ -114,7 +125,6 @@ class AccidentController extends Controller
         $riskTypes = RiskType::all();
         $accidentTypes = AccidentType::all();
         return view('sstsena::modulos.accidents.edit', compact('accident', 'environments', 'injuryTypes', 'riskTypes', 'accidentTypes'));
-        
     }
 
     /**
@@ -124,35 +134,35 @@ class AccidentController extends Controller
      * @return Renderable
      */
     public function update(Request $request, $id)
-{
+    {
 
-    $accident = Accident::findOrFail($id);
-    $request->validate([
-        // Validar los campos del formulario
-        'date_time' => 'required|date',
-        'environment_id' => 'required|exists:environments,id',
-        'injury_type_id' => 'required|exists:injury_types,id',
-        'risk_type_id' => 'required|exists:risk_types,id',
-        'accident_type_id' => 'required|exists:accident_types,id',
-        'description' => 'required|string|max:255',
-        'severity' => 'required|in:minor,moderate,serious,fatal',
-    ]);
-    // Actualizar el accidente con los datos del formulario
-    $accident->update([
-        'date_time' => $request->date_time,
-        'environment_id' => $request->environment_id,
-        'injury_type_id' => $request->injury_type_id,
-        'risk_type_id' => $request->risk_type_id,
-        'accident_type_id' => $request->accident_type_id,
-        'description' => $request->description,
-        'evidence' => $request->hasFile('evidence')
-            ? $request->file('evidence')->store('evidence', 'public')
-            : $accident->evidence, // Mantener evidencia existente si no se sube una nueva
-        'severity' => $request->severity,
-    ]);
-       return redirect()->route('sstsena.funcionario.accidents.index')
-        ->with('success', 'Accident created successfully.');
-}
+        $accident = Accident::findOrFail($id);
+        $request->validate([
+            // Validar los campos del formulario
+            'date_time' => 'required|date',
+            'environment_id' => 'required|exists:environments,id',
+            'injury_type_id' => 'required|exists:injury_types,id',
+            'risk_type_id' => 'required|exists:risk_types,id',
+            'accident_type_id' => 'required|exists:accident_types,id',
+            'description' => 'required|string|max:255',
+            'severity' => 'required|in:minor,moderate,serious,fatal',
+        ]);
+        // Actualizar el accidente con los datos del formulario
+        $accident->update([
+            'date_time' => $request->date_time,
+            'environment_id' => $request->environment_id,
+            'injury_type_id' => $request->injury_type_id,
+            'risk_type_id' => $request->risk_type_id,
+            'accident_type_id' => $request->accident_type_id,
+            'description' => $request->description,
+            'evidence' => $request->hasFile('evidence')
+                ? $request->file('evidence')->store('evidence', 'public')
+                : $accident->evidence, // Mantener evidencia existente si no se sube una nueva
+            'severity' => $request->severity,
+        ]);
+        return redirect()->route('sstsena.funcionario.accidents.index')
+            ->with('success', 'Accident created successfully.');
+    }
 
 
     /**

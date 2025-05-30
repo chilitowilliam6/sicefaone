@@ -17,16 +17,16 @@ class PermisosFuncioanrioTableSeeder extends Seeder
      */
     public function run()
     {
-         // Crear una lista de permisos para el rol 
-       
-          $permissions_funcionario = []; // Lista de permisos para el rol de funcionario
+        // Crear una lista de permisos para el rol 
 
-          
+        $permissions_funcionario = []; // Lista de permisos para el rol de funcionario
+
+
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name', 'sstsena')->first();
 
         // Rutas funcionario
-         $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.welcome'], [ // Registro o actualización de permiso
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.welcome'], [ // Registro o actualización de permiso
             'name' => 'Acceso al Rol de funcionario',
             'description' => 'Acceso al Rol de funcionario',
             'description_english' => 'Access to the funcionario Role',
@@ -73,7 +73,7 @@ class PermisosFuncioanrioTableSeeder extends Seeder
 
         // Permiso para editar Accidentes
         $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.accidents.edit'], [ // Registro o actualización de permiso
-            'name' => 'Editar Accidentes', 
+            'name' => 'Editar Accidentes',
             'description' => 'Editar Accidentes',
             'description_english' => 'Edit Accidents',
             'app_id' => $app->id
@@ -83,7 +83,7 @@ class PermisosFuncioanrioTableSeeder extends Seeder
         // Permiso para actualizar Accidentes
         $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.accidents.update'], [ // Registro o actualización de permiso
             'name' => 'Actualizar Accidentes',
-            'description' => 'Actualizar Accidentes', 
+            'description' => 'Actualizar Accidentes',
             'description_english' => 'Update Accidents',
             'app_id' => $app->id
         ]);
@@ -100,7 +100,7 @@ class PermisosFuncioanrioTableSeeder extends Seeder
 
         //-------------------------------------------------
 
-        
+
         // Permiso para ver lista de Personas Involucradas
         $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.people_involved.index'], [ // Registro o actualización de permiso
             'name' => 'ver lista de Personas Involucradas',
@@ -155,14 +155,72 @@ class PermisosFuncioanrioTableSeeder extends Seeder
         ]);
         $permissions_funcionario[] = $permission->id; // Almacenar permiso para rol
 
+        //-------------------------------------------------
+
+        // Permiso para ver lista de Incidentes
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.incidents.index'], [ // Registro o actualización de permiso
+            'name' => 'ver lista de Incidentes',
+            'description' => 'ver lista de Incidentes',
+            'description_english' => 'view list of Incidents',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[] = $permission->id; // Almacenar permiso para rol
+
+        // Permiso para crear Incidentes
+
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.incidents.create'], [ // Registro o actualización de permiso
+            'name' => 'Crear Incidentes',
+            'description' => 'Crear Incidentes',
+            'description_english' => 'Create Incidents',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[] = $permission->id; // Almacenar permiso para rol
+
+        // Permiso para almacenar Incidentes
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.incidents.store'], [ // Registro o actualización de permiso
+            'name' => 'Almacenar Incidentes',
+            'description' => 'Almacenar Incidentes',
+            'description_english' => 'Store Incidents',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[] = $permission->id; // Almacenar permiso para rol
+
+        // Permiso para editar Incidentes
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.incidents.edit'], [ // Registro o actualización de permiso
+            'name' => 'Editar Incidentes',
+            'description' => 'Editar Incidentes',
+            'description_english' => 'Edit Incidents',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[] = $permission->id; // Almacenar permiso para rol
+
+        // Permiso para actualizar Incidentes
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.incidents.update'], [ // Registro o actualización de permiso
+            'name' => 'Actualizar Incidentes',
+            'description' => 'Actualizar Incidentes',
+            'description_english' => 'Update Incidents',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[] = $permission->id; // Almacenar permiso para rol
+
+        // Permiso para eliminar Incidentes
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.incidents.destroy'], [ // Registro o actualización de permiso
+            'name' => 'Eliminar Incidentes',
+            'description' => 'Eliminar Incidentes',
+            'description_english' => 'Delete Incidents',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[] = $permission->id; // Almacenar permiso para rol
         
+        //-------------------------------------------------
+
 
 
         // Consulta de ROLES
-         $rol_funcionario = Role::where('slug', 'sstsena.funcionario')->first(); // Rol Administrador
+        $rol_funcionario = Role::where('slug', 'sstsena.funcionario')->first(); // Rol Administrador
 
 
         // Asignación de PERMISOS para los ROLES de la aplicación AGROSOFT (Sincronización de las relaciones sin eliminar las relaciones existentes)
-         $rol_funcionario->permissions()->syncWithoutDetaching($permissions_funcionario);
+        $rol_funcionario->permissions()->syncWithoutDetaching($permissions_funcionario);
     }
 }
