@@ -365,6 +365,28 @@
                             </a>
                         </div>
                     </div>
+
+                </div>
+                <div class="accordion-item border-0 bg-transparent">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                            type="button" data-bs-toggle="collapse"
+                            data-bs-target="#emergenciasCollapse"
+                            aria-expanded="false"
+                            aria-controls="emergenciasCollapse">
+                            <i class="fas fa-first-aid m-1"></i> Tipo de Emergencias
+                        </button>
+                    </h2>
+                        <div id="emergenciasCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
+                            <div class="accordion-body p-0">
+                                <a href="{{ route('sstsena.admin.emergency_type.index') }}" class="nav-link ps-4">
+                                    <i class="fas fa-first-aid m-2"></i>Lista de Emergencias
+                                </a>
+                                <a href="{{ route('sstsena.admin.emergency_type.create') }}" class="nav-link ps-4">
+                                    <i class="fas fa-first-aid m-2"></i>Crear Tipo de Emergencia
+                                </a>
+                            </div>
+                        </div>
                 
 
             </div>
@@ -426,6 +448,27 @@
                         <a href="{{ route('sstsena.funcionario.incidents.create') }}" class="nav-link ps-4">
                             <i class="far fa-circle me-2"></i>Reportar Incidente
                         </a>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Emergencias -->
+                <div class="accordion-item border-0 bg-transparent">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                            type="button" data-bs-toggle="collapse" data-bs-target="#emergenciesCollapse" aria-expanded="false" aria-controls="emergenciesCollapse">
+                            <i class=" fas fa-first-aid me-2"></i>Emergencias
+                        </button>
+                    </h2>
+                    <div id="emergenciesCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
+                        <div class="accordion-body p-0">
+                            <a href="{{ route('sstsena.funcionario.emergencies.index') }}" class="nav-link ps-4">
+                                <i class="far fa-circle me-2"></i>Lista de Emergencias
+                            </a>
+                            <a href="{{ route('sstsena.funcionario.emergencies.create') }}" class="nav-link ps-4">
+                                <i class="far fa-circle me-2"></i>Reportar Emergencia
+                            </a>
+                        </div>
                     </div>
                 </div>
 

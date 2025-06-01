@@ -10,8 +10,10 @@ use Modules\SSTSENA\Http\Controllers\AccidentController;
 use Modules\SSTSENA\Http\Controllers\TypePersonController;
 use Modules\SSTSENA\Http\Controllers\PeopleInvolvedController;
 use Illuminate\Support\Facades\Route;
+use Modules\SSTSENA\Http\Controllers\EmergencyTypeController;
 use Modules\SSTSENA\Http\Controllers\IncidentTypeController;
 use Modules\SSTSENA\Http\Controllers\IncidentController;
+use Modules\SSTSENA\Http\Controllers\EmergencyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,13 +98,36 @@ Route::middleware(['lang'])->group(function () { // Middleware que permite la in
                   Route::put('/{id}/update', [IncidentTypeController::class, "update"])->name('sstsena.admin.incident_types.update');
                   Route::delete('/{id}/destroy', [IncidentTypeController::class, "destroy"])->name('sstsena.admin.incident_types.destroy');
 
-                  Route::prefix('incidents')->group(function () {
+                    Route::prefix('incidents')->group(function () {
                     Route::get('/', [IncidentController::class, "index"])->name('sstsena.funcionario.incidents.index');
                     Route::get('/create', [IncidentController::class, "create"])->name('sstsena.funcionario.incidents.create');
                     Route::post('/store', [IncidentController::class, "store"])->name('sstsena.funcionario.incidents.store');
                     Route::get('/{id}/edit', [IncidentController::class, "edit"])->name('sstsena.funcionario.incidents.edit');
                     Route::put('/{id}/update', [IncidentController::class, "update"])->name('sstsena.funcionario.incidents.update');
                     Route::delete('/{id}/destroy', [IncidentController::class, "destroy"])->name('sstsena.funcionario.incidents.destroy');
+
+                    // Tipos de Emergencias
+                      Route::prefix('emergency_types')->group(function () {
+                      Route::get('/', [EmergencyTypeController::class, "index"])->name('sstsena.admin.emergency_type.index');
+                      Route::get('/create', [EmergencyTypeController::class, "create"])->name('sstsena.admin.emergency_type.create');
+                      Route::post('/store', [EmergencyTypeController::class, "store"])->name('sstsena.admin.emergency_type.store');
+                      Route::get('/{id}/edit', [EmergencyTypeController::class, "edit"])->name('sstsena.admin.emergency_type.edit');
+                      Route::put('/{id}/update', [EmergencyTypeController::class, "update"])->name('sstsena.admin.emergency_type.update');
+                      Route::delete('/{id}/destroy', [EmergencyTypeController::class, "destroy"])->name('sstsena.admin.emergency_type.destroy');
+
+                      // Emergencias
+                        Route::prefix('emergencies')->group(function () {
+                          Route::get('/', [EmergencyController::class, "index"])->name('sstsena.funcionario.emergencies.index');
+                          Route::get('/create', [EmergencyController::class, "create"])->name('sstsena.funcionario.emergencies.create');
+                          Route::post('/store', [EmergencyController::class, "store"])->name('sstsena.funcionario.emergencies.store');
+                          Route::get('/{id}/edit', [EmergencyController::class, "edit"])->name('sstsena.funcionario.emergencies.edit');
+                          Route::put('/{id}/update', [EmergencyController::class, "update"])->name('sstsena.funcionario.emergencies.update');
+                          Route::delete('/{id}/destroy', [EmergencyController::class, "destroy"])->name('sstsena.funcionario.emergencies.destroy');
+
+
+                          // Continua Aqui....
+                        });
+                    });
                   });
                 });
               });
@@ -110,6 +135,6 @@ Route::middleware(['lang'])->group(function () { // Middleware que permite la in
           });
         });
       });
-    });
   });
+});
 });

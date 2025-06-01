@@ -121,6 +121,8 @@ class PeopleInvolvedController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $peopleInvolved = PeopleInvolved::findOrFail($id);
+        $peopleInvolved->delete();
+        return redirect()->route('sstsena.funcionario.people_involved.index')->with('success', 'Person involved deleted successfully.');
     }
 }

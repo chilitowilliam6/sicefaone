@@ -22,7 +22,7 @@
         <div class="mb-4">
             <label for="date_time" class="form-label" style="color: #34495e; font-weight: 500;">Fecha y Hora</label>
             <input type="datetime-local" name="date_time" id="date_time" 
-                   class="form-control border-light-subtle" required>
+                class="form-control border-light-subtle" required>
         </div>
 
         <div class="mb-4">

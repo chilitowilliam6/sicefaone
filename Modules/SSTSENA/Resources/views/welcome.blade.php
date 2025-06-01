@@ -36,12 +36,11 @@
           @endif
           @if (checkRol('sstsena.funcionario'))
               <li>
-                   <a class="hover:text-orange-500 transition" href="{{ route('sstsena.funcionario.welcome') }}">Funcionario</a> 
+                  <a class="hover:text-orange-500 transition" href="{{ route('sstsena.funcionario.welcome') }}">Funcionario</a> 
               </li>
           @endif
                           
-    @endauth  
-    <a class="hover:text-orange-500 transition" href="{{ route('login') }}">{{ __('Login') }}</a> 
+    @endauth   
     @if (Route::has('login'))
       
         <a class="hover:text-orange-500 transition" href="{{ route('login') }}">{{ __('Login') }}</a>

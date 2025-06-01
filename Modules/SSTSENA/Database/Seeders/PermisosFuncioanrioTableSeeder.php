@@ -214,7 +214,58 @@ class PermisosFuncioanrioTableSeeder extends Seeder
         
         //-------------------------------------------------
 
+        // Permiso para ver lista de Emergencias
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.emergencies.index'], [ // Registro o actualización de permiso
+            'name' => 'ver lista de Emergencias',
+            'description' => 'ver lista de Emergencias',
+            'description_english' => 'view list of Emergencies',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[]=$permission->id; // Almacenar permiso para rol
+        // Permiso para crear Emergencias
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.emergencies.create'], [ // Registro o actualización de permiso
+            'name' => 'Crear Emergencias',
+            'description' => 'Crear Emergencias',
+            'description_english' => 'Create Emergencies',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[]=$permission->id; // Almacenar permiso para rol
 
+        // Permiso para almacenar Emergencias
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.emergencies.store'], [ // Registro o actualización de permiso
+            'name' => 'Almacenar Emergencias',
+            'description' => 'Almacenar Emergencias',
+            'description_english' => 'Store Emergencies',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[]= $permission->id;
+
+        // Permiso para editar Emergencias
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.emergencies.edit'], [
+            'name' => 'Editar Emergencias',
+            'description' => 'Editar Emergencias',
+            'description_english' => 'Edit Emergencies',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate([ 'slug' => 'sstsena.funcionario.emergencies.update'], [
+            'name' => 'Actualizar Emergencias',
+            'description' => 'Actualizar Emergencias',
+            'description_english' => 'Update Emergencies',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[] = $permission->id; // Almacenar permiso para rol
+
+        // Permiso para eliminar Emergencias
+        $permission = Permission::updateOrCreate([ 'slug' => 'sstsena.funcionario.emergencies.destroy'],[
+            'name' => 'Eliminar Emergencias',
+            'description' => 'Eliminar Emergencias',
+            'description_english' => 'Delete Emergencies',
+            'app_id' => $app->id
+        ]);
+
+        $permissions_funcionario[] = $permission->id;
 
         // Consulta de ROLES
         $rol_funcionario = Role::where('slug', 'sstsena.funcionario')->first(); // Rol Administrador

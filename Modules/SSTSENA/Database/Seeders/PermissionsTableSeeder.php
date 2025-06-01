@@ -446,8 +446,83 @@ class PermissionsTableSeeder extends Seeder
         );
         $permissions_admin[] = $permission->id;
 
+        //----------- Rutas para el Permiso del Index de Tipos de Emergencias -----------
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.admin.emergency_type.index'],[
+            'name' => 'vista principal de tipos de emergencias',
+            'description' => 'vista principal de tipos de emergencias',
+            'description_english' => 'Access to the Administrador Role',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
+        // ------ Permiso para vista principal de tipos de emergencias
+        $permission = Permission::updateOrCreate(
+            ['slug' => 'sstsena.admin.emergency_type.index'],
+            [
+                'name' => 'ver listado de tipos de emergencias',
+                'description' => 'vista principal de tipos de emergencias',
+                'description_english' => 'View emergency types list',
+                'app_id' => $app->id
+            ]
+        );
+        $permissions_admin[] = $permission->id;
+        // ------ Permiso para mostrar formulario de creación
+        $permission = Permission::updateOrCreate(
+            ['slug' => 'sstsena.admin.emergency_type.create'],
+            [
+                'name' => 'mostrar formulario de tipos de emergencias',
+                'description' => 'formulario para crear tipos de emergencias',
+                'description_english' => 'Show create emergency type form',
+                'app_id' => $app->id
+            ]
+        );
+        $permissions_admin[] = $permission->id;
 
+        // ------ Permiso para almacenar tipos de emergencias   
+        $permission = Permission::updateOrCreate(
+            ['slug' => 'sstsena.admin.emergency_type.store'],
+            [
+                'name' => 'almacenar nuevo tipo de emergencia',
+                'description' => 'guardar nuevo tipo de emergencia',
+                'description_english' => 'Store new emergency type',
+                'app_id' => $app->id
+            ]
+        );
+        $permissions_admin[] = $permission->id;
+        // ------ Permiso para mostrar formulario de edición
+        $permission = Permission::updateOrCreate(
+            ['slug' => 'sstsena.admin.emergency_type.edit'],
+            [
+                'name' => 'mostrar formulario de edición de tipos de emergencias',
+                'description' => 'editar tipo de emergencia existente',
+                'description_english' => 'Show edit form for emergency type',
+                'app_id' => $app->id
+            ]
+        );
+        $permissions_admin[] = $permission->id;
+        // ------ Permiso para actualizar tipo de emergencia
+        $permission = Permission::updateOrCreate(
+            ['slug' => 'sstsena.admin.emergency_type.update'],
+            [
+                'name' => 'actualizar tipo de emergencia',
+                'description' => 'guardar cambios en tipo de emergencia',
+                'description_english' => 'Update emergency type',
+                'app_id' => $app->id
+            ]
+        );
+        $permissions_admin[] = $permission->id;
+
+        // ------ Permiso para eliminar tipo de emergencia
+        $permission = Permission::updateOrCreate(
+            ['slug' => 'sstsena.admin.emergency_type.destroy'],
+            [
+                'name' => 'eliminar tipo de emergencia',
+                'description' => 'eliminar tipo de emergencia',
+                'description_english' => 'Delete emergency type',
+                'app_id' => $app->id
+            ]
+        );
+        $permissions_admin[] = $permission->id;
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'sstsena.admin')->first(); // Rol Administrador

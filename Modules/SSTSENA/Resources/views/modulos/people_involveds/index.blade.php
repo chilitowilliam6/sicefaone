@@ -1,7 +1,7 @@
 @extends('sstsena::layouts.master')
 @section('content')
 
-<div class="container mt-5">
+<div class="card shadow-sm rounded-3 mb-4" style="background-color: #077ef5;">
     <div class="card shadow-sm rounded-3" style="background-color: #ffffff;">
         <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
             <h3 class="text-center m-0" style="color: #1a3c6e; font-weight: 600;">Personas Involucradas</h3>
@@ -12,8 +12,8 @@
             </form>
         </div>
 
-        <div class="card-body p-4">
-            <table class="table table-striped">
+        <div class="card-body">
+            <table class="table-fixed w-full">
                 <thead>
                     <tr>
                         <th>ID</th>        
@@ -27,6 +27,7 @@
                         <th>Teléfono</th>
                         <th>Dirección</th>
                         <th>Accidente</th>
+                        <th>Acciones</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -46,7 +47,9 @@
                             <td>{{ $people->accident->description }}</td>
                             <td>
                                 <a href="" class="btn btn-primary btn-sm">Editar</a>
-                                <form action="" method="POST" style="display:inline;">
+                            </td>
+                            <td>
+                                <form action="{{ route('sstsena.funcionario.people_involved.destroy', $people->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
@@ -63,5 +66,6 @@
         </div>
     </div>
 </div>
+
 
 @endsection

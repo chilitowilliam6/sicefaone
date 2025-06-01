@@ -137,6 +137,7 @@
                 <th style="color: #34495e; font-weight: 600;">Evidencia</th>
                 <th style="color: #34495e; font-weight: 600;">Creado por</th>
                 <th style="color: #34495e; font-weight: 600;">Acciones</th>
+                <th style="color: #34495e; font-weight: 600;">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -214,13 +215,14 @@
                 <td>
                     <a href="{{ route('sstsena.funcionario.accidents.edit', $accident->id) }}"
                         class="btn btn-sm btn-outline-success me- acquiesced
-                           style=" border-color: #28a745; color: #28a745;>Editar</a>
+                        style=" border-color: #28a745; color: #28a745;>Editar</a>
+                </td>
+                <td>
                     <form action="{{ route('sstsena.funcionario.accidents.destroy', $accident->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este accidente?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
-
                 </td>
             </tr>
             @empty
