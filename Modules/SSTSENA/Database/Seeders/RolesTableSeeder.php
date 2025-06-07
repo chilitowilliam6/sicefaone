@@ -14,7 +14,7 @@ class RolesTableSeeder extends Seeder
         // Consultar aplicación SICA para registrar los roles
         $app = App::where('name', 'SSTSENA')->firstOrFail();
 
-        
+
 
         // Registrar o actualizar rol de ADMINISTRADOR
         $rol_admin = Role::updateOrCreate(['slug' => 'sstsena.admin'], [
@@ -33,9 +33,11 @@ class RolesTableSeeder extends Seeder
             'app_id' => $app->id
         ]);
         $useradministrador = User::where('nickname', 'Wchilito')->firstOrFail();
-         $userfuncionario = User::where('nickname', 'Yeferson28')->firstOrFail();
+        $userfuncionario = User::where('nickname', 'Yeferson28')->firstOrFail();
+        $useradministrador_jorge = User::where('nickname', 'JorgePeña')->firstOrFail();
 
         $useradministrador->roles()->syncWithoutDetaching([$rol_admin->id]);
-         $userfuncionario->roles()->syncWithoutDetaching([$rol_funcionario->id]);
+        $userfuncionario->roles()->syncWithoutDetaching([$rol_funcionario->id]);
+        $useradministrador_jorge->roles()->syncWithoutDetaching([$rol_admin->id]);
     }
 }

@@ -16,7 +16,7 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        // Crear una lista de permisos para el rol 
+        // Crear una lista de permisos para el rol
         $permissions_admin = []; // Lista de permisos para el rol de administrador
 
 
@@ -478,7 +478,7 @@ class PermissionsTableSeeder extends Seeder
         );
         $permissions_admin[] = $permission->id;
 
-        // ------ Permiso para almacenar tipos de emergencias   
+        // ------ Permiso para almacenar tipos de emergencias
         $permission = Permission::updateOrCreate(
             ['slug' => 'sstsena.admin.emergency_type.store'],
             [
@@ -523,6 +523,55 @@ class PermissionsTableSeeder extends Seeder
             ]
         );
         $permissions_admin[] = $permission->id;
+
+        //----------- Rutas para el Permiso del Index de Tipos de Actos Inseguros -----------
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.admin.unsafe_act_types.index'],[
+            'name' => 'vista principal de tipos de actos inseguros',
+            'description' => 'vista principal de tipos actos inseguros',
+            'description_english' => 'Access to the Administrador Role',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.admin.unsafe_act_types.create'],[
+            'name' => 'mostrar formulario de tipos de actos inseguros',
+            'description' => 'formulario para crear tipos de actos inseguros',
+            'description_english' => 'Show create unsafe act type form',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.admin.unsafe_act_types.store'],[
+            'name' => 'almacenar tipos de actos inseguros',
+            'description' => 'guardar nuevo de actos inseguros',
+            'description_english' => 'Store new unsafe act type',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+         $permission = Permission::updateOrCreate(['slug' => 'sstsena.admin.unsafe_act_types.edit'],[
+            'name' => 'abrir formulario de editar de actos inseguros',
+            'description' => 'guardar nuevo de actos inseguros',
+            'description_english' => 'Store new unsafe act type',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.admin.unsafe_act_types.update'],[
+            'name' => 'actualizar tipos de actos inseguros',
+            'description' => 'guardar nuevo de actos inseguros',
+            'description_english' => 'Store new unsafe act type',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
+
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.admin.unsafe_act_types.destroy'],[
+            'name' => 'eliminar tipos de actos inseguros',
+            'description' => 'guardar nuevo de actos inseguros',
+            'description_english' => 'Store new unsafe act type',
+            'app_id' => $app->id
+        ]);
+        $permissions_admin[] = $permission->id; // Almacenar permiso para rol
 
         // Consulta de ROLES
         $rol_admin = Role::where('slug', 'sstsena.admin')->first(); // Rol Administrador

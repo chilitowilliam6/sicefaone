@@ -21,13 +21,19 @@ class UsersTableSeeder extends Seeder
             'email' => 'chilitowilliam502@gmail.com',//Wich4943
         ]);
 
-            $person = Person::where('document_number', 1079175153)->first(); // Consultar Persona
+        $person = Person::where('document_number', 1079175153)->first(); // Consultar Persona
         User::updateOrCreate(['nickname' => 'Yeferson28'], [ // Actualizar o crear usuario
             'person_id' => $person->id,
             'email' => 'yefercordo@gmail.com',//Yeco5153
         ]);
+
+        $person = Person::where('document_number', 1075214494)->first(); // Consultar Persona
+        User::updateOrCreate(['nickname' => 'JorgePeña'], [ // Actualizar o crear usuario
+            'person_id' => $person->id,
+            'email' => 'jorgepeña@gmail.com',//Jope4494
+        ]);
     }
-} 
+}
 
 
 

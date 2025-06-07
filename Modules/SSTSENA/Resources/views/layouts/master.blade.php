@@ -206,17 +206,22 @@
             <div class="d-flex align-items-center">
                 <!-- Notificaciones -->
                 <div class="dropdown me-3">
-                    <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle text-dark" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="far fa-bell"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">15</span>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">15</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
                             <h6 class="dropdown-header">15 Notificaciones</h6>
                         </li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-envelope me-2"></i>4 nuevos mensajes</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-users me-2"></i>8 solicitudes</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-file me-2"></i>3 reportes nuevos</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-envelope me-2"></i>4 nuevos
+                                mensajes</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-users me-2"></i>8 solicitudes</a>
+                        </li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-file me-2"></i>3 reportes
+                                nuevos</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -226,7 +231,8 @@
 
                 <!-- Usuario -->
                 <div class="dropdown">
-                    <a class="nav-link dropdown-toggle text-dark" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle text-dark" href="#" id="userDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -252,227 +258,278 @@
         </div>
 
         <div class="p-3 d-flex align-items-center border-bottom">
-            <img src="{{ asset('AdminLTE-3.2.0/dist/img/user2-160x160.jpg') }}"
-                class="rounded-circle me-2" width="40" height="40" alt="Usuario" loading="lazy">
-            <span class="text-white">@auth {{ auth()->user()->name }} @endauth</span>
+            <img src="{{ asset('AdminLTE-3.2.0/dist/img/user2-160x160.jpg') }}" class="rounded-circle me-2"
+                width="40" height="40" alt="Usuario" loading="lazy">
+            <span class="text-white">@auth {{ auth()->user()->name }} @endauth
+            </span>
         </div>
 
         <nav class="nav flex-column p-2">
             @auth
-            @if (checkRol('sstsena.admin'))
-            <div class="accordion" id="menuAccordion">
-                <!-- Lesiones -->
-                <div class="accordion-item border-0 bg-transparent">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-transparent text-white shadow-none"
-                            type="button" data-bs-toggle="collapse" data-bs-target="#lesionesCollapse" aria-expanded="false" aria-controls="lesionesCollapse">
-                            <i class="fas fa-bone me-2"></i> Lesiones
-                        </button>
-                    </h2>
-                    <div id="lesionesCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
-                        <div class="accordion-body p-0">
-                            <a href="{{ route('sstsena.admin.injury_types.index') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Lista de Tipos
-                            </a>
-                            <a href="{{ route('sstsena.admin.injury_types.create') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Crear Tipos
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Riesgos -->
-                <div class="accordion-item border-0 bg-transparent">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-transparent text-white shadow-none"
-                            type="button" data-bs-toggle="collapse" data-bs-target="#riesgosCollapse" aria-expanded="false" aria-controls="riesgosCollapse">
-                            <i class="fas fa-biohazard me-2"></i> Riesgos
-                        </button>
-                    </h2>
-                    <div id="riesgosCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
-                        <div class="accordion-body p-0">
-                            <a href="{{ route('sstsena.admin.risk_types.index') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Lista de Tipos
-                            </a>
-                            <a href="{{ route('sstsena.admin.risk_types.create') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Crear Tipo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Accidentes -->
-                <div class="accordion-item border-0 bg-transparent">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-transparent text-white shadow-none"
-                            type="button" data-bs-toggle="collapse" data-bs-target="#accidentesCollapse" aria-expanded="false" aria-controls="accidentesCollapse">
-                            <i class="fas fa-car-crash me-2"></i> Tipos Accidentes
-                        </button>
-                    </h2>
-                    <div id="accidentesCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
-                        <div class="accordion-body p-0">
-                            <a href="{{ route('sstsena.admin.accident_types.index') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Lista de Tipos
-                            </a>
-                            <a href="{{ route('sstsena.admin.accident_types.create') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Crear Tipo
-                            </a>
+                @if (checkRol('sstsena.admin'))
+                    <div class="accordion" id="menuAccordion">
+                        <!-- Lesiones -->
+                        <div class="accordion-item border-0 bg-transparent">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#lesionesCollapse"
+                                    aria-expanded="false" aria-controls="lesionesCollapse">
+                                    <i class="fas fa-bone me-2"></i> Lesiones
+                                </button>
+                            </h2>
+                            <div id="lesionesCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
+                                <div class="accordion-body p-0">
+                                    <a href="{{ route('sstsena.admin.injury_types.index') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Lista de Tipos
+                                    </a>
+                                    <a href="{{ route('sstsena.admin.injury_types.create') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Crear Tipos
+                                    </a>
+                                </div>
+                            </div>
                         </div>
 
-                    </div>
-                </div>
-                <div class="accordion-item border-0 bg-transparent">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-transparent text-white shadow-none"
-                            type="button" data-bs-toggle="collapse"
-                            data-bs-target="#personasCollapse"
-                            aria-expanded="false"
-                            aria-controls="personasCollapse">
-                            <i class="fas fa-users me-2"></i> Tipo de persona
-                        </button>
-                    </h2>
-                    <div id="personasCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
-                        <div class="accordion-body p-0">
-                            <a href="{{ route('sstsena.admin.TypePerson.index') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Lista Personas
-                            </a>
-                            <a href="{{ route('sstsena.admin.TypePerson.create') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Crear Tipo Persona
-                            </a>
+                        <!-- Riesgos -->
+                        <div class="accordion-item border-0 bg-transparent">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#riesgosCollapse"
+                                    aria-expanded="false" aria-controls="riesgosCollapse">
+                                    <i class="fas fa-biohazard me-2"></i> Riesgos
+                                </button>
+                            </h2>
+                            <div id="riesgosCollapse" class="accordion-collapse collapse"
+                                data-bs-parent="#menuAccordion">
+                                <div class="accordion-body p-0">
+                                    <a href="{{ route('sstsena.admin.risk_types.index') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Lista de Tipos
+                                    </a>
+                                    <a href="{{ route('sstsena.admin.risk_types.create') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Crear Tipo
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Accidentes -->
+                        <div class="accordion-item border-0 bg-transparent">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#accidentesCollapse"
+                                    aria-expanded="false" aria-controls="accidentesCollapse">
+                                    <i class="fas fa-car-crash me-2"></i> Tipos Accidentes
+                                </button>
+                            </h2>
+                            <div id="accidentesCollapse" class="accordion-collapse collapse"
+                                data-bs-parent="#menuAccordion">
+                                <div class="accordion-body p-0">
+                                    <a href="{{ route('sstsena.admin.accident_types.index') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Lista de Tipos
+                                    </a>
+                                    <a href="{{ route('sstsena.admin.accident_types.create') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Crear Tipo
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 bg-transparent">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#personasCollapse"
+                                    aria-expanded="false" aria-controls="personasCollapse">
+                                    <i class="fas fa-users me-2"></i> Tipo de persona
+                                </button>
+                            </h2>
+                            <div id="personasCollapse" class="accordion-collapse collapse"
+                                data-bs-parent="#menuAccordion">
+                                <div class="accordion-body p-0">
+                                    <a href="{{ route('sstsena.admin.TypePerson.index') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Lista Personas
+                                    </a>
+                                    <a href="{{ route('sstsena.admin.TypePerson.create') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Crear Tipo Persona
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- incidentes -->
+
+                        <div class="accordion-item border-0 bg-transparent">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#incidentesCollapse"
+                                    aria-expanded="false" aria-controls="incidentesCollapse">
+                                    <i class="fas fa-exclamation-triangle me-2"></i> Tipo de Incidentes
+                                </button>
+                            </h2>
+                            <div id="incidentesCollapse" class="accordion-collapse collapse"
+                                data-bs-parent="#menuAccordion">
+                                <div class="accordion-body p-0">
+                                    <a href="{{ route('sstsena.admin.incident_types.index') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Lista de Incidentes
+                                    </a>
+                                    <a href="{{ route('sstsena.admin.incident_types.create') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Crear Tipo de Incidente
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="accordion-item border-0 bg-transparent">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#emergenciasCollapse"
+                                    aria-expanded="false" aria-controls="emergenciasCollapse">
+                                    <i class="fas fa-first-aid m-1"></i> Tipo de Emergencias
+                                </button>
+                            </h2>
+                            <div id="emergenciasCollapse" class="accordion-collapse collapse"
+                                data-bs-parent="#menuAccordion">
+                                <div class="accordion-body p-0">
+                                    <a href="{{ route('sstsena.admin.emergency_type.index') }}" class="nav-link ps-4">
+                                        <i class="fas fa-first-aid m-2"></i>Lista de Emergencias
+                                    </a>
+                                    <a href="{{ route('sstsena.admin.emergency_type.create') }}" class="nav-link ps-4">
+                                        <i class="fas fa-first-aid m-2"></i>Crear Tipo de Emergencia
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actos Inseguros -->
+                        <div class="accordion-item border-0 bg-transparent">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#actosinsegurosCollapse"
+                                    aria-expanded="false" aria-controls="actosinsegurosCollapse">
+                                    <i class="fas fa-car-crash me-2"></i> Actos Inseguros
+                                </button>
+                            </h2>
+                            <div id="actosinsegurosCollapse" class="accordion-collapse collapse"
+                                data-bs-parent="#menuAccordion">
+                                <div class="accordion-body p-0">
+                                    <a href="{{ route('sstsena.admin.unsafe_act_types.index') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Tipo Actos Inseguros
+                                    </a>
+                                    <a href="{{ route('sstsena.admin.unsafe_act_types.create') }}" class="nav-link ps-4">
+                                        <i class="far fa-circle me-2"></i>Crear Tipo
+                                    </a>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
 
-                 <!-- incidentes -->
-
-                 <div class="accordion-item border-0 bg-transparent">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-transparent text-white shadow-none"
-                            type="button" data-bs-toggle="collapse"
-                            data-bs-target="#incidentesCollapse"
-                            aria-expanded="false"
-                            aria-controls="incidentesCollapse">
-                            <i class="fas fa-exclamation-triangle me-2"></i> Tipo de Incidentes
-                        </button>
-                    </h2>
-                    <div id="incidentesCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
-                        <div class="accordion-body p-0">
-                            <a href="{{ route('sstsena.admin.incident_types.index') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Lista de Incidentes
-                            </a>
-                            <a href="{{ route('sstsena.admin.incident_types.create') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Crear Tipo de Incidente
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="accordion-item border-0 bg-transparent">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-transparent text-white shadow-none"
-                            type="button" data-bs-toggle="collapse"
-                            data-bs-target="#emergenciasCollapse"
-                            aria-expanded="false"
-                            aria-controls="emergenciasCollapse">
-                            <i class="fas fa-first-aid m-1"></i> Tipo de Emergencias
-                        </button>
-                    </h2>
-                        <div id="emergenciasCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
+                @if (checkRol('sstsena.funcionario'))
+                    <div class="accordion-item border-0 bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#reportesCollapse"
+                                aria-expanded="false" aria-controls="reportesCollapse">
+                                <i class="fas fa-ambulance me-2"></i> Accidentes
+                            </button>
+                        </h2>
+                        <div id="reportesCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
                             <div class="accordion-body p-0">
-                                <a href="{{ route('sstsena.admin.emergency_type.index') }}" class="nav-link ps-4">
-                                    <i class="fas fa-first-aid m-2"></i>Lista de Emergencias
+                                <a href="{{ route('sstsena.funcionario.accidents.index') }}" class="nav-link ps-4">
+                                    <i class="far fa-circle me-2"></i>Lista de Accidentes
                                 </a>
-                                <a href="{{ route('sstsena.admin.emergency_type.create') }}" class="nav-link ps-4">
-                                    <i class="fas fa-first-aid m-2"></i>Crear Tipo de Emergencia
+                                <a href="{{ route('sstsena.funcionario.accidents.create') }}" class="nav-link ps-4">
+                                    <i class="far fa-circle me-2"></i>Reportar Accidente
                                 </a>
                             </div>
                         </div>
-                
-
-            </div>
-            @endif
-
-            @if (checkRol('sstsena.funcionario'))
-            <div class="accordion-item border-0 bg-transparent">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed bg-transparent text-white shadow-none"
-                        type="button" data-bs-toggle="collapse" data-bs-target="#reportesCollapse" aria-expanded="false" aria-controls="reportesCollapse">
-                        <i class="fas fa-ambulance me-2"></i> Accidentes
-                    </button>
-                </h2>
-                <div id="reportesCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
-                    <div class="accordion-body p-0">
-                        <a href="{{ route('sstsena.funcionario.accidents.index') }}" class="nav-link ps-4">
-                            <i class="far fa-circle me-2"></i>Lista de Accidentes
-                        </a>
-                        <a href="{{ route('sstsena.funcionario.accidents.create') }}" class="nav-link ps-4">
-                            <i class="far fa-circle me-2"></i>Reportar Accidente
-                        </a>
                     </div>
-                </div>
-            </div>
 
-            <div class="accordion-item border-0 bg-transparent">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed bg-transparent text-white shadow-none"
-                        type="button" data-bs-toggle="collapse" data-bs-target="#reportesCollapse" aria-expanded="false" aria-controls="reportesCollapse">
-                        <i class="fas fa-ambulance me-2"></i> Personas Involucradas
-                    </button>
-                </h2>
-                <div id="reportesCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
-                    <div class="accordion-body p-0">
-                        <a href="{{ route('sstsena.funcionario.people_involved.index') }}" class="nav-link ps-4">
-                            <i class="far fa-circle me-2"></i>Lista de Personas Involucradas
-                        </a>
-                        <a href="{{ route('sstsena.funcionario.people_involved.create') }}" class="nav-link ps-4">
-                            <i class="far fa-circle me-2"></i>Agregar Persona Involucrada
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- incidentes -->
-
-            <div class="accordion-item border-0 bg-transparent">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed bg-transparent text-white shadow-none"
-                        type="button" data-bs-toggle="collapse" data-bs-target="#incidentsCollapse" aria-expanded="false" aria-controls="incidentsCollapse">
-                        <i class="fas fa-exclamation-triangle me-2"></i> Incidentes
-                    </button>
-                </h2>
-                <div id="incidentsCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
-                    <div class="accordion-body p-0">
-                        <a href="{{ route('sstsena.funcionario.incidents.index') }}" class="nav-link ps-4">
-                            <i class="far fa-circle me-2"></i>Lista de Incidentes
-                        </a>
-                        <a href="{{ route('sstsena.funcionario.incidents.create') }}" class="nav-link ps-4">
-                            <i class="far fa-circle me-2"></i>Reportar Incidente
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-            <!-- Emergencias -->
-                <div class="accordion-item border-0 bg-transparent">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-transparent text-white shadow-none"
-                            type="button" data-bs-toggle="collapse" data-bs-target="#emergenciesCollapse" aria-expanded="false" aria-controls="emergenciesCollapse">
-                            <i class=" fas fa-first-aid me-2"></i>Emergencias
-                        </button>
-                    </h2>
-                    <div id="emergenciesCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
-                        <div class="accordion-body p-0">
-                            <a href="{{ route('sstsena.funcionario.emergencies.index') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Lista de Emergencias
-                            </a>
-                            <a href="{{ route('sstsena.funcionario.emergencies.create') }}" class="nav-link ps-4">
-                                <i class="far fa-circle me-2"></i>Reportar Emergencia
-                            </a>
+                    <div class="accordion-item border-0 bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#reportesCollapse"
+                                aria-expanded="false" aria-controls="reportesCollapse">
+                                <i class="fas fa-ambulance me-2"></i> Personas Involucradas
+                            </button>
+                        </h2>
+                        <div id="reportesCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
+                            <div class="accordion-body p-0">
+                                <a href="{{ route('sstsena.funcionario.people_involved.index') }}" class="nav-link ps-4">
+                                    <i class="far fa-circle me-2"></i>Lista de Personas Involucradas
+                                </a>
+                                <a href="{{ route('sstsena.funcionario.people_involved.create') }}"
+                                    class="nav-link ps-4">
+                                    <i class="far fa-circle me-2"></i>Agregar Persona Involucrada
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            @endif
+                    <!-- incidentes -->
+
+                    <div class="accordion-item border-0 bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#incidentsCollapse"
+                                aria-expanded="false" aria-controls="incidentsCollapse">
+                                <i class="fas fa-exclamation-triangle me-2"></i> Incidentes
+                            </button>
+                        </h2>
+                        <div id="incidentsCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
+                            <div class="accordion-body p-0">
+                                <a href="{{ route('sstsena.funcionario.incidents.index') }}" class="nav-link ps-4">
+                                    <i class="far fa-circle me-2"></i>Lista de Incidentes
+                                </a>
+                                <a href="{{ route('sstsena.funcionario.incidents.create') }}" class="nav-link ps-4">
+                                    <i class="far fa-circle me-2"></i>Reportar Incidente
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Emergencias -->
+                    <div class="accordion-item border-0 bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#emergenciesCollapse"
+                                aria-expanded="false" aria-controls="emergenciesCollapse">
+                                <i class=" fas fa-first-aid me-2"></i>Emergencias
+                            </button>
+                        </h2>
+                        <div id="emergenciesCollapse" class="accordion-collapse collapse"
+                            data-bs-parent="#menuAccordion">
+                            <div class="accordion-body p-0">
+                                <a href="{{ route('sstsena.funcionario.emergencies.index') }}" class="nav-link ps-4">
+                                    <i class="far fa-circle me-2"></i>Lista de Emergencias
+                                </a>
+                                <a href="{{ route('sstsena.funcionario.emergencies.create') }}" class="nav-link ps-4">
+                                    <i class="far fa-circle me-2"></i>Reportar Emergencia
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Acots Inseguros -->
+                    <div class="accordion-item border-0 bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-transparent text-white shadow-none"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#actosCollapse"
+                                aria-expanded="false" aria-controls="actosCollapse">
+                                <i class=" fas fa-first-aid me-2"></i>Actos Inseguros
+                            </button>
+                        </h2>
+                        <div id="actosCollapse" class="accordion-collapse collapse"
+                            data-bs-parent="#menuAccordion">
+                            <div class="accordion-body p-0">
+                                <a href="{{ route('sstsena.funcionario.unsafe_acts.index') }}" class="nav-link ps-4">
+                                    <i class="far fa-circle me-2"></i>Lista de Actos Inseguros
+                                </a>
+                                <a href="{{ route('sstsena.funcionario.unsafe_acts.create') }}" class="nav-link ps-4">
+                                    <i class="far fa-circle me-2"></i>Reportar Actos Inseguros
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             @endauth
 
             <a href="#" class="nav-link">
@@ -523,7 +580,8 @@
             });
 
             document.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768 && !e.target.closest('#sidebar') && !e.target.closest('#sidebarToggle')) {
+                if (window.innerWidth <= 768 && !e.target.closest('#sidebar') && !e.target.closest(
+                        '#sidebarToggle')) {
                     document.getElementById('sidebar').classList.remove('show');
                 }
             });
@@ -537,7 +595,8 @@
                     const accordionBody = link.closest('.accordion-collapse');
                     if (accordionBody) {
                         accordionBody.classList.add('show');
-                        const accordionButton = document.querySelector(`button[data-bs-target="#${accordionBody.id}"]`);
+                        const accordionButton = document.querySelector(
+                            `button[data-bs-target="#${accordionBody.id}"]`);
                         if (accordionButton) {
                             accordionButton.classList.remove('collapsed');
                             accordionButton.setAttribute('aria-expanded', 'true');
