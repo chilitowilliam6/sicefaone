@@ -1,1 +1,0 @@
-@extends('sstsena::layous')

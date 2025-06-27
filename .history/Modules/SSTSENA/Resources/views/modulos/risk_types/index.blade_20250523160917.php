@@ -1,1 +1,0 @@
-@extends('SSTSENA::layouts.master')
