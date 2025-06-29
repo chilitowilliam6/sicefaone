@@ -1,0 +1,387 @@
+<?php
+
+namespace Modules\SSTSENA\Http\Controllers;
+
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Modules\SSTSENA\Entities\event_responses;
+use Modules\SSTSENA\Entities\Accident;
+use Modules\SSTSENA\Entities\Incidents;
+use Modules\SSTSENA\Entities\Emergency;
+use Modules\SSTSENA\Entities\UnsafeAct;
+
+
+class EventResponseController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    // Accidents
+  public function indexAccidents(Request $request, $accidentId)
+{
+    // Eager-load the peopleInvolved relationship
+    $event = Accident::with(['peopleInvolved', 'eventResponses.createdBy'])->findOrFail($accidentId);
+    
+    // Construir la consulta base para las respuestas
+    $query = $event->eventResponses()->with('createdBy');
+    
+    // Aplicar filtro por fecha si existe
+    if ($request->has('date_filter') && !empty($request->date_filter)) {
+        $query->whereDate('response_date', $request->date_filter);
+    }
+    
+    // Obtener las respuestas, ordenadas por fecha descendente
+    $responses = $query->orderBy('response_date', 'desc')->get();
+    
+    return view('sstsena::modulos.event_responses.accidents.index', compact('event', 'responses'));
+}
+
+    public function createAccidents($accidentId)
+    {
+        $event = Accident::findOrFail($accidentId);
+        return view('sstsena::modulos.event_responses.accidents.create', compact('event'));
+    }
+
+    public function storeAccidents(Request $request, $accidentId)
+    {
+         if (!Auth::check()) {
+        return redirect()->back()->with('error', 'Debes estar autenticado para responder.');
+    }
+        $event = Accident::findOrFail($accidentId);
+        $request->validate([
+            'response' => 'required|string',
+            'actions_taken' => 'required|string',
+            'status' => 'nullable|in:investigation,finalized',
+            'severity' => 'nullable|in:minor,moderate,serious,fatal',
+        ]);
+
+        $event->eventResponses()->create([
+            'response' => $request->response,
+            'actions_taken' => $request->actions_taken,
+            'respondido_por' => Auth::user()->id,
+            'response_date' => now(),
+            
+        ]);
+
+        return redirect()->route('sstsena.accidents.responses.index', $accidentId)
+            ->with('success', 'Respuesta creada exitosamente.');
+    }
+
+    public function editAccidents($accidentId, $id)
+    {
+        $event = Accident::findOrFail($accidentId);
+        $response = Event_Responses::findOrFail($id);
+        return view('sstsena::modulos.event_responses.accidents.edit', compact('event', 'response'));
+    }
+
+    public function updateAccidents(Request $request, $accidentId, $id)
+    {
+        $event = Accident::findOrFail($accidentId);
+        $response = Event_Responses::findOrFail($id);
+        $request->validate([
+            'response' => 'required|string',
+        ]);
+
+        $response->update([
+            'response' => $request->response,
+            'actions_taken' => $request->actions_taken,
+            'status' => $request->status,
+            'severity' => $request->severity,
+            'response_date' => now(),
+        ]);
+
+        return redirect()->route('sstsena.accidents.responses.index', $accidentId)
+            ->with('success', 'Respuesta actualizada exitosamente.');
+    }
+
+    public function destroyAccidents($accidentId, $id)
+    {
+        $event = Accident::findOrFail($accidentId);
+        $response = Event_Responses::findOrFail($id);
+        $response->delete();
+
+        return redirect()->route('sstsena.accidents.responses.index', $accidentId)
+            ->with('success', 'Respuesta eliminada exitosamente.');
+    }
+
+    public function indexIncidents($incidentId)
+{
+    $event = Incidents::findOrFail($incidentId);
+
+    // Initialize query for responses with the relationship
+    $query = $event->eventResponses()->with('createdBy');
+
+    // Apply date filter if provided
+    if ($dateFilter = request('date_filter')) {
+        // Ensure the date is valid
+        try {
+            $date = \Carbon\Carbon::parse($dateFilter)->startOfDay();
+            $query->whereDate('response_date', $date);
+        } catch (\Exception $e) {
+            // Handle invalid date gracefully (optional: log or flash error)
+            \Log::warning("Invalid date format for date_filter: {$dateFilter}");
+        }
+    }
+
+    // Paginate results (optional: adjust perPage as needed)
+    $responses = $query->paginate(10); // Change 10 to your desired items per page
+
+    return view('sstsena::modulos.event_responses.incidents.index', compact('event', 'responses'));
+}
+
+    public function createIncidents($incidentId)
+    {
+        $event = Incidents::findOrFail($incidentId);
+        return view('sstsena::modulos.event_responses.incidents.create', compact('event'));
+    }
+
+    public function storeIncidents(Request $request, $incidentId)
+    {
+        $event = Incidents::findOrFail($incidentId);
+        $request->validate([
+            'response' => 'required|string',
+            'actions_taken' => 'required|string',
+            'status' => 'nullable|in:investigation,finalized',
+            'severity' => 'nullable|in:minor,moderate,serious,fatal',
+            
+        ]);
+
+         $event->eventResponses()->create([
+            'response' => $request->response,
+            'actions_taken' => $request->actions_taken,
+            'respondido_por' => Auth::user()->id,
+            'response_date' => now(),
+            
+        ]);
+
+        return redirect()->route('sstsena.incidents.responses.index', $incidentId)
+            ->with('success', 'Respuesta creada exitosamente.');
+    }
+
+    public function editIncidents($incidentId, $id)
+    {
+        $event = Incidents::findOrFail($incidentId);
+        $response = Event_Responses::findOrFail($id);
+        return view('sstsena::modulos.event_responses.incidents.edit', compact('event', 'response'));
+    }
+
+    public function updateIncidents(Request $request, $incidentId, $id)
+    {
+        $event = Incidents::findOrFail($incidentId);
+        $response = Event_Responses::findOrFail($id);
+        $request->validate([
+            'response' => 'required|string',
+        ]);
+
+        $response->update([
+            'response' => $request->response,
+        ]);
+
+        return redirect()->route('sstsena.incidents.responses.index', $incidentId)
+            ->with('success', 'Respuesta actualizada exitosamente.');
+    }
+
+    public function destroyIncidents($incidentId, $id)
+    {
+        $event = Incidents::findOrFail($incidentId);
+        $response = Event_Responses::findOrFail($id);
+        $response->delete();
+
+        return redirect()->route('sstsena.incidents.responses.index', $incidentId)
+            ->with('success', 'Respuesta eliminada exitosamente.');
+    }
+
+    // Emergencies
+  public function indexEmergencies($emergencyId)
+{
+    // Busca la emergencia por ID, lanza una excepción 404 si no se encuentra
+    $event = Emergency::findOrFail($emergencyId);
+    
+    // Obtiene el valor del filtro de fecha desde los parámetros de la solicitud (GET)
+    $dateFilter = request('date_filter');
+
+    // Construye una consulta base para las respuestas, incluyendo la relación createdBy
+    $query = $event->eventResponses()->with('createdBy');
+
+    // Si se proporcionó un filtro de fecha, filtra las respuestas por la fecha de creación
+    if ($dateFilter) {
+        $query->whereDate('created_at', $dateFilter);
+    }
+
+    // Obtiene las respuestas paginadas (10 por página) para mejorar el rendimiento
+    $responses = $query->paginate(10); // Puedes ajustar el número de elementos por página
+
+    // Retorna la vista con los datos de la emergencia y las respuestas
+    return view('sstsena::modulos.event_responses.emergencies.index', compact('event', 'responses'));
+}
+
+    public function createEmergencies($emergencyId)
+    {
+        $event = Emergency::findOrFail($emergencyId);
+        return view('sstsena::modulos.event_responses.emergencies.create', compact('event'));
+    }
+
+    public function storeEmergencies(Request $request, $emergencyId)
+    {
+        $event = Emergency::findOrFail($emergencyId);
+        $request->validate([
+            'response' => 'required|string',
+            'actions_taken' => 'required|string',
+            'status' => 'nullable|in:investigation,finalized',
+            'severity' => 'nullable|in:minor,moderate,serious,fatal',
+        ]);
+
+       $event->eventResponses()->create([
+            'response' => $request->response,
+            'actions_taken' => $request->actions_taken,
+            'respondido_por' => Auth::user()->id,
+            'response_date' => now(),
+            
+        ]);
+
+        return redirect()->route('sstsena.emergencies.responses.index', $emergencyId)
+            ->with('success', 'Respuesta creada exitosamente.');
+    }
+
+    public function editEmergencies($emergencyId, $id)
+    {
+        $event = Emergency::findOrFail($emergencyId);
+        $response = Event_Responses::findOrFail($id);
+        return view('sstsena::modulos.event_responses.emergencies.edit', compact('event', 'response'));
+    }
+
+    public function updateEmergencies(Request $request, $emergencyId, $id)
+    {
+        $event = Emergency::findOrFail($emergencyId);
+        $response = Event_Responses::findOrFail($id);
+        $request->validate([
+            'response' => 'required|string',
+        ]);
+
+        $response->update([
+            'response' => $request->response,
+        ]);
+
+        return redirect()->route('sstsena.emergencies.responses.index', $emergencyId)
+            ->with('success', 'Respuesta actualizada exitosamente.');
+    }
+
+    public function destroyEmergencies($emergencyId, $id)
+    {
+        $event = Emergency::findOrFail($emergencyId);
+        $response = Event_Responses::findOrFail($id);
+        $response->delete();
+
+        return redirect()->route('sstsena.emergencies.responses.index', $emergencyId)
+            ->with('success', 'Respuesta eliminada exitosamente.');
+    }
+ 
+ public function indexUnsafeActs(Request $request, $unsafeActId)
+{
+    // Buscar el acto inseguro por su ID o lanzar un error si no existe
+    $event = UnsafeAct::findOrFail($unsafeActId);
+    
+    // Iniciar la construcción de la consulta para obtener las respuestas del evento
+    $query = $event->eventResponses()->with('createdBy');
+    
+    // Aplicar filtro por fecha si se proporciona
+    if ($request->has('date_filter') && $request->date_filter) {
+        $query->whereDate('created_at', $request->date_filter);
+    }
+    
+    // Paginar o obtener los resultados (se establecen 10 por página)
+    $responses = $query->paginate(10); // Ajusta la paginación según sea necesario
+    
+    // Retornar la vista con los datos del evento y las respuestas
+    return view('sstsena::modulos.event_responses.unsafe_acts.index', compact('event', 'responses'));
+}
+
+
+    public function createUnsafeActs($unsafeActId)
+    {
+        $event = UnsafeAct::findOrFail($unsafeActId);
+        return view('sstsena::modulos.event_responses.unsafe_acts.create', compact('event'));
+    }
+
+    public function storeUnsafeActs(Request $request, $unsafeActId)
+    {
+        $event = UnsafeAct::findOrFail($unsafeActId);
+        $request->validate([
+            'response' => 'required|string',
+            'actions_taken' => 'required|string',
+            'status' => 'nullable|in:investigation,finalized',
+            'severity' => 'nullable|in:minor,moderate,serious,fatal',
+        ]);
+
+        $event->eventResponses()->create([
+            'response' => $request->response,
+            'actions_taken' => $request->actions_taken,
+            'respondido_por' => Auth::user()->id,
+            'response_date' => now(),
+            
+        ]);
+
+        return redirect()->route('sstsena.unsafe_acts.responses.index', $unsafeActId)
+            ->with('success', 'Respuesta creada exitosamente.');
+    }
+
+    public function editUnsafeActs($unsafeActId, $id)
+    {
+        $event = UnsafeAct::findOrFail($unsafeActId);
+        $response = Event_Responses::findOrFail($id);
+        return view('sstsena::modulos.event_responses.unsafe_acts.edit', compact('event', 'response'));
+    }
+
+    public function updateUnsafeActs(Request $request, $unsafeActId, $id)
+    {
+        $event = UnsafeAct::findOrFail($unsafeActId);
+        $response = Event_Responses::findOrFail($id);
+        $request->validate([
+            'response' => 'required|string',
+        ]);
+
+        $response->update([
+            'response' => $request->response,
+        ]);
+
+        return redirect()->route('sstsena.unsafe_acts.responses.index', $unsafeActId)
+            ->with('success', 'Respuesta actualizada exitosamente.');
+    }
+
+    public function destroyUnsafeActs($unsafeActId, $id)
+    {
+        $event = UnsafeAct::findOrFail($unsafeActId);
+        $response = Event_Responses::findOrFail($id);
+        $response->delete();
+
+        return redirect()->route('sstsena.unsafe_acts.responses.index', $unsafeActId)
+            ->with('success', 'Respuesta eliminada exitosamente.');
+    }
+
+     public function indexAllResponses(Request $request)
+    {
+        // Construir la consulta base para todas las respuestas
+        $query = Event_Responses::with(['createdBy', 'eventable']);
+
+        // Aplicar filtro por fecha si existe
+        if ($request->has('date_filter') && !empty($request->date_filter)) {
+            $query->whereDate('response_date', $request->date_filter);
+        }
+
+       
+
+        // Obtener todas las respuestas paginadas
+        $responses = $query->orderBy('response_date', 'desc')->paginate(10);
+
+        // Obtener todos los eventos para cada tipo
+        $accidents = Accident::with(['eventResponses', 'createdBy'])->get();
+        $incidents = Incidents::with(['eventResponses', 'createdBy'])->get();
+        $emergencies = Emergency::with(['eventResponses', 'createdBy'])->get();
+        $unsafeActs = UnsafeAct::with(['eventResponses', 'createdBy'])->get();
+
+        return view('sstsena::modulos.event_responses.emergencies.index', compact('accidents', 'incidents', 'emergencies', rewrite: $unsafeActs));
+    }
+}
