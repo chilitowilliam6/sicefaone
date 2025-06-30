@@ -510,6 +510,17 @@ class PermissionsTableSeeder extends Seeder
         );
         $permissions_admin[] = $permission->id;
 
+        $permission = Permission::updateOrCreate(
+            ['slug' => 'sstsena.admin.diagram.index'],
+            [
+                'name' => 'mostrar diagrama de eventos',
+                'description' => 'vista del diagrama de eventos',
+                'description_english' => 'Show event diagram',
+                'app_id' => $app->id
+            ]
+        );
+        $permissions_admin[] = $permission->id;
+
         // ------ Permiso para almacenar tipos de emergencias
         $permission = Permission::updateOrCreate(
             ['slug' => 'sstsena.admin.emergency_type.store'],

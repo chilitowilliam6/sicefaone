@@ -11,7 +11,7 @@ use App\Models\User;
 
 class Incidents extends Model
 {
-      protected $casts = [
+    protected $casts = [
     'date_time' => 'datetime',
 ];
     protected $fillable = [

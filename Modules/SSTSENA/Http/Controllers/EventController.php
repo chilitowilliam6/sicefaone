@@ -77,6 +77,18 @@ public function index()
     return view('sstsena::modulos.event_responses.events.index', compact('accidents', 'incidents', 'emergencies', 'unsafeActs'));
 }
 
+public function indexDiagram(){
+    // Retorna la vista del diagrama de respuestas de eventos
+    $accidents = Accident::select('date_time')->get();
+    $incidents = Incidents::select('date_time')->get();
+    $emergencies = Emergency::select('date_time')->get();
+    $unsafeActs = UnsafeAct::select('date_time')->get();
+
+    return view('sstsena::modulos.event_responses.diagram.index', compact(
+        'accidents', 'incidents', 'emergencies', 'unsafeActs'
+    ));
+}
+
 
     /**
      * Show the form for creating a new resource.

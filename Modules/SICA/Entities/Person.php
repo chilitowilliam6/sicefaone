@@ -93,6 +93,28 @@ class Person extends Model implements Auditable
         ];
         return $document_type_abbreviations[$this->attributes['document_type']].'-'.$this->attributes['document_number'];
     }
+
+    public function getTipoPersonaYCargo()
+{
+    $empleado = $this->employees()->with('employee_type')->first();
+    if ($empleado) {
+        return ['tipo' => 'Empleado', 'cargo' => $empleado->employee_type->name ?? 'Desconocido'];
+    }
+
+    $contratista = $this->contractors()->with('employee_type')->first();
+    if ($contratista) {
+        return ['tipo' => 'Contratista', 'cargo' => $contratista->employee_type->name ?? 'Desconocido'];
+    }
+
+    $aprendiz = $this->apprentices()->first();
+    if ($aprendiz) {
+        return ['tipo' => 'Aprendiz', 'cargo' => 'Aprendiz'];
+    }
+
+    return ['tipo' => 'Visitante', 'cargo' => 'Visitante'];
+}
+
+
     public function setAddressAttribute($value){ // Convierte el primer carácter en mayúscula del dato address (MUTADOR)
         $this->attributes['address'] = ucfirst($value);
     }

@@ -71,6 +71,14 @@ class PermisosFuncioanrioTableSeeder extends Seeder
         ]);
         $permissions_funcionario[] = $permission->id; // Almacenar permiso para rol
 
+        $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.accidents.buscarPorDocumento'], [ // Registro o actualización de permiso
+            'name' => 'Acceso al formulario de búsqueda de Accidentes por Documento',
+            'description' => 'Acceso al formulario de búsqueda de Accidentes por Documento',
+            'description_english' => 'Access to the Accident search form by Document',
+            'app_id' => $app->id
+        ]);
+        $permissions_funcionario[] = $permission->id; // Almacenar permiso para rol
+
         // Permiso para editar Accidentes
         $permission = Permission::updateOrCreate(['slug' => 'sstsena.funcionario.accidents.edit'], [ // Registro o actualización de permiso
             'name' => 'Editar Accidentes',

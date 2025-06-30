@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestion SST</title>
-    <link rel="icon" href="{{ asset('images/Favicon2.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('SSTSENA/images/sst1.png') }}" type="image/x-icon">
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
             --text-color: #333333;
             --sidebar-bg: #ffffff;
             --sidebar-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --navbar-bg:rgb(255, 255, 255);
+            --navbar-bg: rgb(255, 255, 255);
             --footer-bg: #1a3c6e;
             --sidebar-collapsed-width: 60px;
             --sidebar-full-width: 260px;
@@ -68,12 +68,13 @@
             margin-left: var(--sidebar-full-width);
         }
 
-      .navbar {
-    background-color: var(--navbar-bg);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1rem 1rem; /* Increased vertical padding from 0.5rem to 1rem */
-    z-index: 1100;
-}
+        .navbar {
+            background-color: var(--navbar-bg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem 1rem;
+            /* Increased vertical padding from 0.5rem to 1rem */
+            z-index: 1100;
+        }
 
         .nav-link {
             color: var(--text-color);
@@ -290,11 +291,13 @@
         }
 
         /* Icon styles */
-        .nav-link i, .accordion-button i {
+        .nav-link i,
+        .accordion-button i {
             transition: transform 0.2s ease, color 0.2s ease;
         }
 
-        .nav-link:hover i, .accordion-button:hover i {
+        .nav-link:hover i,
+        .accordion-button:hover i {
             color: var(--accent-color);
             transform: scale(1.1);
         }
@@ -304,25 +307,25 @@
 <body>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="{{ asset('images/images.png') }}" alt="Logo" height="80" loading="lazy">
+        <img src="{{ asset('SSTSENA/images/sst1.png')  }}" alt="Logo" height="80" loading="lazy">
     </div>
 
- <!-- Navbar -->
-<nav class="navbar navbar-expand fixed-top bg-light shadow-sm">
-    <div class="container-fluid">
-        <!-- Botón para mostrar/ocultar sidebar + Título -->
-        <div class="d-flex align-items-center">
-            <button class="btn btn-link text-dark me-2" id="sidebarToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <!-- Título con margen izquierdo -->
-            <div class="d-flex align-items-center ms-3">
-                <i class="fas fa-hard-hat text-warning me-2"></i>
-                <span class="fw-bold text-dark">Sistema de Gestión SST</span>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand fixed-top bg-light shadow-sm">
+        <div class="container-fluid">
+            <!-- Botón para mostrar/ocultar sidebar + Título -->
+            <div class="d-flex align-items-center">
+                <button class="btn btn-link text-dark me-2" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <!-- Título con margen izquierdo -->
+                <div class="d-flex align-items-center ms-3">
+                    <i class="fas fa-hard-hat text-warning me-2"></i>
+                    <span class="fw-bold text-dark">Sistema de Gestión SST</span>
+                </div>
             </div>
-        </div>
 
-     
+
 
             <!-- Usuario -->
             <div class="dropdown">
@@ -343,8 +346,8 @@
                 </ul>
             </div>
         </div>
-    </div>
-</nav>
+        </div>
+    </nav>
 
 
 
@@ -354,10 +357,13 @@
             <a href="#" class="text-dark text-decoration-none h5 mb-0">GDF</a>
         </div>
 
+        <div class="d-flex justify-content-center">
         <div class="p-3 d-flex align-items-center border-bottom">
-            <img src="{{ asset('AdminLTE-3.2.0/dist/img/user2-160x160.jpg') }}" class="rounded-circle me-2"
-                width="40" height="40" alt="Usuario" loading="lazy">
-            <span class="text-dark">@auth {{ auth()->user()->name }} @endauth</span>
+            <img src="{{ asset('SSTSENA/images/sst1.png') }}" class="rounded-circle me-2"
+                width="60" height="65" alt="Usuario" loading="lazy">
+            <span class="text-dark">@auth {{ auth()->user()->name }} @endauth
+            </span>
+        </div>
         </div>
 
         <nav class="nav flex-column p-2">
@@ -396,8 +402,7 @@
                                     <i class="fas fa-biohazard me-2"></i><span>Riesgos</span>
                                 </button>
                             </h2>
-                            <div id="riesgosCollapse" class="accordion-collapse collapse"
-                                data-bs-parent="#menuAccordion">
+                            <div id="riesgosCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
                                 <div class="accordion-body p-0">
                                     <a href="{{ route('sstsena.admin.risk_types.index') }}" class="nav-link ps-4"
                                         data-label="Lista de Tipos">
@@ -416,7 +421,8 @@
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed bg-transparent text-dark shadow-none"
                                     type="button" data-bs-toggle="collapse" data-bs-target="#accidentesCollapse"
-                                    aria-expanded="false" aria-controls="accidentesCollapse" data-label="Tipos Accidentes">
+                                    aria-expanded="false" aria-controls="accidentesCollapse"
+                                    data-label="Tipos Accidentes">
                                     <i class="fas fa-car-crash me-2"></i><span>Tipos Accidentes</span>
                                 </button>
                             </h2>
@@ -435,36 +441,13 @@
                             </div>
                         </div>
 
-                        <!-- Tipo de persona -->
-                        <div class="accordion-item border-0 bg-transparent">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed bg-transparent text-dark shadow-none"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#personasCollapse"
-                                    aria-expanded="false" aria-controls="personasCollapse" data-label="Tipo de persona">
-                                    <i class="fas fa-users me-2"></i><span>Tipo de Cargo</span>
-                                </button>
-                            </h2>
-                            <div id="personasCollapse" class="accordion-collapse collapse"
-                                data-bs-parent="#menuAccordion">
-                                <div class="accordion-body p-0">
-                                    <a href="{{ route('sstsena.admin.TypePerson.index') }}" class="nav-link ps-4"
-                                        data-label="Lista Personas">
-                                        <i class="far fa-circle me-2"></i><span>Lista Personas</span>
-                                    </a>
-                                    <a href="{{ route('sstsena.admin.TypePerson.create') }}" class="nav-link ps-4"
-                                        data-label="Crear Tipo Persona">
-                                        <i class="far fa-circle me-2"></i><span>Registrar Tipo de Cargo</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Incidentes -->
                         <div class="accordion-item border-0 bg-transparent">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed bg-transparent text-dark shadow-none"
                                     type="button" data-bs-toggle="collapse" data-bs-target="#incidentesCollapse"
-                                    aria-expanded="false" aria-controls="incidentesCollapse" data-label="Tipo de Incidentes">
+                                    aria-expanded="false" aria-controls="incidentesCollapse"
+                                    data-label="Tipo de Incidentes">
                                     <i class="fas fa-exclamation-triangle me-2"></i><span>Tipo de Incidentes</span>
                                 </button>
                             </h2>
@@ -488,7 +471,8 @@
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed bg-transparent text-dark shadow-none"
                                     type="button" data-bs-toggle="collapse" data-bs-target="#emergenciasCollapse"
-                                    aria-expanded="false" aria-controls="emergenciasCollapse" data-label="Tipo de Emergencias">
+                                    aria-expanded="false" aria-controls="emergenciasCollapse"
+                                    data-label="Tipo de Emergencias">
                                     <i class="fas fa-first-aid me-2"></i><span>Tipo de Emergencias</span>
                                 </button>
                             </h2>
@@ -512,7 +496,8 @@
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed bg-transparent text-dark shadow-none"
                                     type="button" data-bs-toggle="collapse" data-bs-target="#actosinsegurosCollapse"
-                                    aria-expanded="false" aria-controls="actosinsegurosCollapse" data-label="Actos Inseguros">
+                                    aria-expanded="false" aria-controls="actosinsegurosCollapse"
+                                    data-label="Actos Inseguros">
                                     <i class="fas fa-car-crash me-2"></i><span>Actos Inseguros</span>
                                 </button>
                             </h2>
@@ -528,21 +513,24 @@
                                         <i class="far fa-circle me-2"></i><span>Registrar Tipo</span>
                                     </a>
                                 </div>
-                         
+
                             </div>
-                                    <a href="{{ route('events.index')}}" class="nav-link" data-label="Respuesta de eventos">
-                <i class="fas fa-hourglass-half me-2"></i><span>Respuesta de eventos</span>
-            </a>
+                            <a href="{{ route('events.index') }}" class="nav-link" data-label="Respuesta de eventos">
+                                <i class="fas fa-hourglass-half me-2"></i><span>Respuesta de eventos</span>
+                            </a>
                         </div>
-                    </div>
+                            <a href="{{ route('sstsena.admin.diagram.index') }}" class="nav-link" data-label="Respuesta de eventos">
+                                    <i class="fas fa-hourglass-half me-2"></i><span>Indicadores  SST</span>
+                                </a>
+                        </div>
                 @endif
 
                 @if (checkRol('sstsena.funcionario'))
                     <div class="accordion-item border-0 bg-transparent">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-transparent text-dark shadow-none"
-                                type="button" data-bs-toggle="collapse" data-bs-target="#reportesCollapse"
-                                aria-expanded="false" aria-controls="reportesCollapse" data-label="Accidentes">
+                            <button class="accordion-button collapsed bg-transparent text-dark shadow-none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#reportesCollapse" aria-expanded="false"
+                                aria-controls="reportesCollapse" data-label="Accidentes">
                                 <i class="fas fa-ambulance me-2"></i><span>Accidentes</span>
                             </button>
                         </h2>
@@ -560,34 +548,12 @@
                         </div>
                     </div>
 
-                    <div class="accordion-item border-0 bg-transparent">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-transparent text-dark shadow-none"
-                                type="button" data-bs-toggle="collapse" data-bs-target="#reportesCollapse"
-                                aria-expanded="false" aria-controls="reportesCollapse" data-label="Personas Involucradas">
-                                <i class="fas fa-ambulance me-2"></i><span>Personas Involucradas</span>
-                            </button>
-                        </h2>
-                        <div id="reportesCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
-                            <div class="accordion-body p-0">
-                                <a href="{{ route('sstsena.funcionario.people_involved.index') }}" class="nav-link ps-4"
-                                    data-label="Lista de Personas Involucradas">
-                                    <i class="far fa-circle me-2"></i><span>Lista de Personas Involucradas</span>
-                                </a>
-                                <a href="{{ route('sstsena.funcionario.people_involved.create') }}"
-                                    class="nav-link ps-4" data-label="Agregar Persona Involucrada">
-                                    <i class="far fa-circle me-2"></i><span>Agregar Persona Involucrada</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Incidentes -->
                     <div class="accordion-item border-0 bg-transparent">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-transparent text-dark shadow-none"
-                                type="button" data-bs-toggle="collapse" data-bs-target="#incidentsCollapse"
-                                aria-expanded="false" aria-controls="incidentsCollapse" data-label="Incidentes">
+                            <button class="accordion-button collapsed bg-transparent text-dark shadow-none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#incidentsCollapse" aria-expanded="false"
+                                aria-controls="incidentsCollapse" data-label="Incidentes">
                                 <i class="fas fa-exclamation-triangle me-2"></i><span>Incidentes</span>
                             </button>
                         </h2>
@@ -608,9 +574,9 @@
                     <!-- Emergencias -->
                     <div class="accordion-item border-0 bg-transparent">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-transparent text-dark shadow-none"
-                                type="button" data-bs-toggle="collapse" data-bs-target="#emergenciesCollapse"
-                                aria-expanded="false" aria-controls="emergenciesCollapse" data-label="Emergencias">
+                            <button class="accordion-button collapsed bg-transparent text-dark shadow-none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#emergenciesCollapse" aria-expanded="false"
+                                aria-controls="emergenciesCollapse" data-label="Emergencias">
                                 <i class="fas fa-first-aid me-2"></i><span>Emergencias</span>
                             </button>
                         </h2>
@@ -632,14 +598,13 @@
                     <!-- Actos Inseguros -->
                     <div class="accordion-item border-0 bg-transparent">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-transparent text-dark shadow-none"
-                                type="button" data-bs-toggle="collapse" data-bs-target="#actosCollapse"
-                                aria-expanded="false" aria-controls="actosCollapse" data-label="Actos Inseguros">
+                            <button class="accordion-button collapsed bg-transparent text-dark shadow-none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#actosCollapse" aria-expanded="false"
+                                aria-controls="actosCollapse" data-label="Actos Inseguros">
                                 <i class="fas fa-first-aid me-2"></i><span>Actos Inseguros</span>
                             </button>
                         </h2>
-                        <div id="actosCollapse" class="accordion-collapse collapse"
-                            data-bs-parent="#menuAccordion">
+                        <div id="actosCollapse" class="accordion-collapse collapse" data-bs-parent="#menuAccordion">
                             <div class="accordion-body p-0">
                                 <a href="{{ route('sstsena.funcionario.unsafe_acts.index') }}" class="nav-link ps-4"
                                     data-label="Lista de Actos Inseguros">
@@ -651,12 +616,12 @@
                                 </a>
                             </div>
                         </div>
-                  
+
                     </div>
                 @endif
             @endauth
-           
-          
+
+
         </nav>
     </div>
 
@@ -729,7 +694,8 @@
 
             // Close sidebar on click outside for mobile
             document.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768 && !e.target.closest('#sidebar') && !e.target.closest('#sidebarToggle')) {
+                if (window.innerWidth <= 768 && !e.target.closest('#sidebar') && !e.target.closest(
+                        '#sidebarToggle')) {
                     sidebar.classList.remove('expanded');
                     mainContent.classList.remove('expanded');
                     footer.classList.remove('expanded');

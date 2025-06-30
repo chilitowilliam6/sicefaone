@@ -11,12 +11,11 @@ class Accident extends Model
 {
     use HasFactory;
     protected $casts = [
-    'date_time' => 'datetime',
-];
+        'date_time' => 'datetime',
+    ];
     protected $fillable = [
         'date_time',
         'environment_id',
-        'injury_type_id',
         'risk_type_id',
         'accident_type_id',
         'description',
@@ -49,13 +48,18 @@ class Accident extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-    
-   public function eventResponses()
-{
-    return $this->morphMany(event_responses::class, 'responseable');
-}
-  public function peopleInvolved()
+
+    public function eventResponses()
+    {
+        return $this->morphMany(event_responses::class, 'responseable');
+    }
+    public function peopleInvolved()
     {
         return $this->hasMany(PeopleInvolved::class, 'accident_id', 'id');
+    }
+
+    public function accidentPersons()
+    {
+        return $this->hasMany(AccidentPerson::class, 'accident_id', 'id');
     }
 }
