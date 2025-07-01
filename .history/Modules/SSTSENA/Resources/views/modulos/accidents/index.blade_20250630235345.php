@@ -85,7 +85,7 @@
                             </td>
                             <td class="corporate-cell">{{ $accident->date_time }}</td>
                             <td class="corporate-cell">{{ $accident->environment->name ?? 'N/A' }}</td>
-                           
+                            <td class="corporate-cell">{{ $accident->injuryType->name ?? 'N/A' }}</td>
                             <td class="corporate-cell">{{ $accident->riskType->name ?? 'N/A' }}</td>
                             <td class="corporate-cell">{{ $accident->accidentType->name ?? 'N/A' }}</td>
                             <td class="corporate-cell">

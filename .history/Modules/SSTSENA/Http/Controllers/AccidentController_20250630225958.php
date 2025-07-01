@@ -159,6 +159,7 @@ if ($request->hasFile('evidence')) {
         'evidence' => $filename, // CORRECTO AHORA
         'severity' => $request->severity,
 
+           $accident->injury_type_id = $request->input('injury_type_id', null);
     ]);
 
     foreach ($request->personas as $personaData) {
@@ -172,7 +173,7 @@ if ($request->hasFile('evidence')) {
             ]);
         }
     }
-   
+
     return redirect()->route('sstsena.funcionario.accidents.index')
         ->with('success', 'Accidente creado correctamente.');
 }

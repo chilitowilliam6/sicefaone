@@ -14,13 +14,14 @@ class CreateAccidentPeopleTable extends Migration
     public function up()
     {
         Schema::create('accident_people', function (Blueprint $table) {
+             Schema::create('accident_people', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained('people')->onDelete('cascade');
-            $table->foreignId('accident_id')->constrained('accidents')->onDelete('cascade');
+            $table->foreignId('person_id')->constrained()->onDelete('cascade');
+            $table->foreignId('accident_id')->constrained()->onDelete('cascade');
             $table->foreignId('injury_type_id')->constrained('injury_types')->onDelete('cascade');
             $table->text('observation')->nullable();
-
             $table->timestamps();
+
         });
     }
 

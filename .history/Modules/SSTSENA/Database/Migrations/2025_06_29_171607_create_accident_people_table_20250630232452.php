@@ -18,8 +18,7 @@ class CreateAccidentPeopleTable extends Migration
             $table->foreignId('person_id')->constrained('people')->onDelete('cascade');
             $table->foreignId('accident_id')->constrained('accidents')->onDelete('cascade');
             $table->foreignId('injury_type_id')->constrained('injury_types')->onDelete('cascade');
-            $table->text('observation')->nullable();
-
+            
             $table->timestamps();
         });
     }

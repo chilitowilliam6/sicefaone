@@ -172,7 +172,7 @@ if ($request->hasFile('evidence')) {
             ]);
         }
     }
-   
+
     return redirect()->route('sstsena.funcionario.accidents.index')
         ->with('success', 'Accidente creado correctamente.');
 }
