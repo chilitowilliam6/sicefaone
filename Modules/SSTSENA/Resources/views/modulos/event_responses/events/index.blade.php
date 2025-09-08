@@ -91,12 +91,7 @@
                                                 <span>Ubicación</span>
                                             </div>
                                         </th>
-                                        <th class="corporate-th accidents-th-extra" style="width: 8%;">
-                                            <div class="th-content">
-                                                <i class="fas fa-medkit me-2"></i>
-                                                <span>Tipo de Lesión</span>
-                                            </div>
-                                        </th>
+                                        
                                         <th class="corporate-th accidents-th-extra" style="width: 8%;">
                                             <div class="th-content">
                                                 <i class="fas fa-exclamation-circle me-2"></i>
@@ -175,12 +170,7 @@
                                                         class="fw-semibold text-dark">{{ $item->environment->name ?? 'N/A' }}</span>
                                                 </div>
                                             </td>
-                                            <td class="corporate-cell accidents-cell-extra" style="width: 8%;">
-                                                <div class="injury-type-info">
-                                                    <span
-                                                        class="fw-semibold text-dark">{{ $item->injuryType->name ?? 'N/A' }}</span>
-                                                </div>
-                                            </td>
+                                            
                                             <td class="corporate-cell accidents-cell-extra" style="width: 8%;">
                                                 <div class="risk-type-info">
                                                     <span
